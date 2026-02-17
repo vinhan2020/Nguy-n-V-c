@@ -67,7 +67,7 @@ const PlayerManager: React.FC<PlayerManagerProps> = ({ players, onClose, onAdd, 
                     {player.isDealer && (
                       <span className="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-1.5 py-0.5 rounded flex items-center gap-0.5">
                         <ShieldCheck size={10} />
-                        NHÀ CÁI
+                        ĐIỀU PHỐI
                       </span>
                     )}
                   </div>
@@ -76,7 +76,7 @@ const PlayerManager: React.FC<PlayerManagerProps> = ({ players, onClose, onAdd, 
                       <button 
                         onClick={() => onChangeDealer(player.id)}
                         className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                        title="Đổi làm Nhà Cái"
+                        title="Đổi người điều phối"
                       >
                         <ArrowRightLeft size={16} />
                       </button>

@@ -23,7 +23,7 @@ const HistoryLog: React.FC<HistoryLogProps> = ({ rounds, players }) => {
         <thead className="bg-slate-50 border-b border-slate-200">
           <tr>
             <th className="py-3 px-4 font-bold text-slate-600 w-16">Vòng</th>
-            <th className="py-3 px-4 font-bold text-slate-600">Nhà Cái</th>
+            <th className="py-3 px-4 font-bold text-slate-600">Người điều phối</th>
             <th className="py-3 px-4 font-bold text-slate-600 text-right">Tổng Thu/Chi</th>
           </tr>
         </thead>

@@ -59,14 +59,14 @@ const RoundEntry: React.FC<RoundEntryProps> = ({ dealer, players, onClose, onSub
         </div>
 
         <div className="p-6 overflow-y-auto flex-1">
-          {/* Dealer Status */}
+          {/* Coordinator status */}
           <div className="bg-slate-100 rounded-2xl p-5 mb-8 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-emerald-600 text-white rounded-lg shadow-lg">
                 <ShieldCheck size={24} />
               </div>
               <div>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Nhà Cái</p>
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Người điều phối</p>
                 <p className="font-bold text-xl text-slate-800">{dealer.name}</p>
               </div>
             </div>

@@ -1,5 +1,5 @@
 {
-  "name": "Copy of Xì Dách Scorekeeper",
-  "description": "A modern, responsive tool to track wins and losses in Vietnamese Blackjack (Xì Dách), featuring automatic dealer calculations and cumulative balance tracking.",
+  "name": "Friendly Score Tracker",
+  "description": "A modern, responsive tool to track scores, wins and losses in friendly group games, featuring automatic coordinator calculations and cumulative balance tracking.",
   "requestFramePermissions": []
 }

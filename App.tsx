@@ -47,7 +47,7 @@ const App: React.FC = () => {
     const newPlayer: Player = {
       id: crypto.randomUUID(),
       name: name.trim(),
-      isDealer: players.length === 0, // First player is dealer by default
+      isDealer: players.length === 0, // First player is coordinator by default
     };
     setPlayers([...players, newPlayer]);
   };
@@ -107,7 +107,7 @@ const App: React.FC = () => {
             <div className="bg-white/20 p-1.5 rounded-lg">
               <Swords size={24} />
             </div>
-            <h1 className="text-xl font-bold tracking-tight">Xì Dách Score</h1>
+            <h1 className="text-xl font-bold tracking-tight">Score Nhóm Bạn</h1>
           </div>
           <div className="flex items-center gap-2">
             <button 
@@ -201,7 +201,7 @@ const App: React.FC = () => {
             <UserPlus size={40} />
           </div>
           <h3 className="text-lg font-medium text-slate-900">Chưa có người chơi nào</h3>
-          <p className="text-slate-500 mt-1 mb-6 max-w-xs">Thêm ít nhất 2 người để bắt đầu tính tiền Xì Dách.</p>
+          <p className="text-slate-500 mt-1 mb-6 max-w-xs">Thêm ít nhất 2 người để bắt đầu theo dõi điểm chơi cùng nhau.</p>
           <button 
             onClick={() => setShowPlayerManager(true)}
             className="px-6 py-3 bg-emerald-600 text-white rounded-xl font-semibold shadow-lg shadow-emerald-600/20 hover:bg-emerald-700 transition-all"
