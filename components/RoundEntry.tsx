@@ -88,7 +88,7 @@ const RoundEntry: React.FC<RoundEntryProps> = ({ dealer, players, onClose, onSub
                 <div className="w-32 relative">
                   <input 
                     type="text"
-                    inputMode="numeric"
+                    inputMode="text"
                     placeholder="0"
                     value={playerScores[player.id]}
                     onChange={(e) => handleScoreChange(player.id, e.target.value)}
