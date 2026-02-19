@@ -8,12 +8,53 @@ interface RoundEntryProps {
   players: Player[];
   onClose: () => void;
   onSubmit: (scores: Record<string, number>) => void;
+  initialScores?: Record<string, number>;
+  isEdit?: boolean;
 }
 
-const RoundEntry: React.FC<RoundEntryProps> = ({ dealer, players, onClose, onSubmit }) => {
-  const [playerScores, setPlayerScores] = useState<Record<string, string>>(
-    players.reduce((acc, p) => ({ ...acc, [p.id]: '' }), {})
-  );
+const RoundEntry: React.FC<RoundEntryProps> = ({
+  dealer,
+  players,
+  onClose,
+  onSubmit,
+  initialScores,
+  isEdit = false,
+}) => {
+  const [playerScores, setPlayerScores] = useState<Record<string, string>>(() => {
+    const base: Record<string, string> = players.reduce(
+      (acc, p) => ({ ...acc, [p.id]: '' }),
+      {} as Record<string, string>
+    );
+
+    if (initialScores) {
+      players.forEach((p) => {
+        const val = initialScores[p.id];
+        if (typeof val === 'number' && !Number.isNaN(val)) {
+          base[p.id] = String(val);
+        }
+      });
+    }
+
+    return base;
+  });
+
+  useEffect(() => {
+    const base: Record<string, string> = players.reduce(
+      (acc, p) => ({ ...acc, [p.id]: '' }),
+      {} as Record<string, string>
+    );
+
+    if (initialScores) {
+      players.forEach((p) => {
+        const val = initialScores[p.id];
+        if (typeof val === 'number' && !Number.isNaN(val)) {
+          base[p.id] = String(val);
+        }
+      });
+    }
+
+    setPlayerScores(base);
+  }, [players, initialScores]);
 
   const handleScoreChange = (id: string, val: string) => {
     // Only allow numbers and minus sign
@@ -51,7 +92,9 @@ const RoundEntry: React.FC<RoundEntryProps> = ({ dealer, players, onClose, onSub
         <div className="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
           <div className="flex items-center gap-2">
             <Coins className="text-emerald-500" size={20} />
-            <h3 className="font-bold text-slate-800">Nhập Kết Quả Vòng</h3>
+            <h3 className="font-bold text-slate-800">
+              {isEdit ? 'Sửa Kết Quả Vòng' : 'Nhập Kết Quả Vòng'}
+            </h3>
           </div>
           <button onClick={onClose} className="p-1 hover:bg-slate-200 rounded-full transition-colors">
             <X size={20} />

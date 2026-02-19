@@ -12,6 +12,7 @@ const App: React.FC = () => {
   const [rounds, setRounds] = useState<Round[]>([]);
   const [showRoundModal, setShowRoundModal] = useState(false);
   const [showPlayerManager, setShowPlayerManager] = useState(false);
+  const [editingRound, setEditingRound] = useState<Round | null>(null);
 
   // Persistence
   useEffect(() => {
@@ -71,16 +72,25 @@ const App: React.FC = () => {
     })));
   };
 
-  const handleAddRound = (scores: Record<string, number>) => {
+  const handleSaveRound = (scores: Record<string, number>) => {
     if (!currentDealer) return;
-    
-    const newRound: Round = {
-      id: rounds.length + 1,
-      dealerId: currentDealer.id,
-      scores,
-    };
-    
-    setRounds([...rounds, newRound]);
+
+    if (editingRound) {
+      setRounds(prev =>
+        prev.map((round) =>
+          round.id === editingRound.id ? { ...round, scores } : round
+        )
+      );
+      setEditingRound(null);
+    } else {
+      const newRound: Round = {
+        id: rounds.length + 1,
+        dealerId: currentDealer.id,
+        scores,
+      };
+      setRounds(prev => [...prev, newRound]);
+    }
+
     setShowRoundModal(false);
   };
 
@@ -97,6 +107,11 @@ const App: React.FC = () => {
       setRounds([]);
     }
   }
+
+  const handleEditRound = (round: Round) => {
+    setEditingRound(round);
+    setShowRoundModal(true);
+  };
 
   return (
     <div className="min-h-screen bg-slate-50 pb-24 md:pb-12">
@@ -158,7 +173,7 @@ const App: React.FC = () => {
               </button>
             )}
           </div>
-          <HistoryLog rounds={rounds} players={players} />
+          <HistoryLog rounds={rounds} players={players} onEditRound={handleEditRound} />
         </section>
       </main>
 
@@ -179,8 +194,13 @@ const App: React.FC = () => {
         <RoundEntry 
           dealer={currentDealer}
           players={players.filter(p => !p.isDealer)}
-          onClose={() => setShowRoundModal(false)}
-          onSubmit={handleAddRound}
+          onClose={() => {
+            setShowRoundModal(false);
+            setEditingRound(null);
+          }}
+          onSubmit={handleSaveRound}
+          initialScores={editingRound?.scores}
+          isEdit={!!editingRound}
         />
       )}
 

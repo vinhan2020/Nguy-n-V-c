@@ -1,14 +1,14 @@
 
 import React from 'react';
 import { Round, Player } from '../types';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface HistoryLogProps {
   rounds: Round[];
   players: Player[];
+  onEditRound?: (round: Round) => void;
 }
 
-const HistoryLog: React.FC<HistoryLogProps> = ({ rounds, players }) => {
+const HistoryLog: React.FC<HistoryLogProps> = ({ rounds, players, onEditRound }) => {
   if (rounds.length === 0) {
     return (
       <div className="py-12 flex flex-col items-center justify-center text-slate-400">
@@ -37,7 +37,18 @@ const HistoryLog: React.FC<HistoryLogProps> = ({ rounds, players }) => {
                 <tr className="hover:bg-slate-50 transition-colors">
                   <td className="py-4 px-4 font-medium text-slate-500">#{round.id}</td>
                   <td className="py-4 px-4">
-                    <span className="font-semibold text-slate-800">{dealer?.name || 'Unknown'}</span>
+                    <div className="flex items-center gap-3">
+                      <span className="font-semibold text-slate-800">{dealer?.name || 'Unknown'}</span>
+                      {onEditRound && (
+                        <button
+                          type="button"
+                          onClick={() => onEditRound(round)}
+                          className="text-[11px] font-semibold text-blue-600 hover:text-blue-700 hover:underline"
+                        >
+                          Sửa điểm
+                        </button>
+                      )}
+                    </div>
                   </td>
                   <td className={`py-4 px-4 text-right font-bold tabular-nums ${dealerScore > 0 ? 'text-emerald-600' : dealerScore < 0 ? 'text-rose-600' : 'text-slate-400'}`}>
                     {dealerScore > 0 ? '+' : ''}{dealerScore.toLocaleString()}
